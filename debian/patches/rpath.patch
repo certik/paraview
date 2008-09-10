@@ -1,0 +1,26 @@
+Index: paraview-3.2.2/VTK/Common/Testing/Install/CMakeLists.txt
+===================================================================
+--- paraview-3.2.2.orig/VTK/Common/Testing/Install/CMakeLists.txt	2008-06-04 23:39:53.000000000 +0200
++++ paraview-3.2.2/VTK/Common/Testing/Install/CMakeLists.txt	2008-06-15 12:30:26.199622834 +0200
+@@ -5,7 +5,7 @@
+   INCLUDE("${VTK_USE_FILE}")
+   INCLUDE_DIRECTORIES(${VIT_SOURCE_DIR})
+ 
+-  SET(CMAKE_SKIP_RPATH 1)
++  SET(CMAKE_SKIP_RPATH 0)
+   SET(VIT_FORWARD_DIR_BUILD ${VIT_BINARY_DIR})
+   IF(CMAKE_CONFIGURATION_TYPES)
+     SET(VIT_FORWARD_CONFIG_PRE "CMAKE_INTDIR \"/\" ")
+Index: paraview-3.2.2/VTK/CMake/vtkSelectSharedLibraries.cmake
+===================================================================
+--- paraview-3.2.2.orig/VTK/CMake/vtkSelectSharedLibraries.cmake	2008-06-04 23:39:55.000000000 +0200
++++ paraview-3.2.2/VTK/CMake/vtkSelectSharedLibraries.cmake	2008-06-15 12:30:26.199622834 +0200
+@@ -51,7 +51,7 @@
+       SET(CMAKE_SKIP_RPATH 0 CACHE INTERNAL "Whether to build with rpath." FORCE)
+     ELSE(VTK_USE_RPATH)
+       # We will not use rpath support.  Tell CMake to skip it.
+-      SET(CMAKE_SKIP_RPATH 1 CACHE INTERNAL "Whether to build with rpath." FORCE)
++      SET(CMAKE_SKIP_RPATH 0 CACHE INTERNAL "Whether to build with rpath." FORCE)
+     ENDIF(VTK_USE_RPATH)
+   ENDIF(NOT WIN32)
+ ENDIF(NOT VTK_SHARED_LIBRARIES_SELECTED)

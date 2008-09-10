@@ -1,0 +1,7 @@
+assistant-qt4.patch
+configure.patch
+install.patch
+rpath.patch
+search-client-doc-finder-in-fhs-dir.patch
+gcc4.3.patch
+ffmpeg_writer.patch

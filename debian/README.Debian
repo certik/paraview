@@ -1,0 +1,95 @@
+Paraview
+--------
+
+Here you can find a few notes how to get you started on Debian.
+Thourough, full official documentation can be found at http://paraview.org.
+
+Load your vtk file
+------------------
+
+$ paraview --data=file.vtk
+
+Hit "Apply". Depending on what you have put into the file you can see inside
+your geometry by: hit the "Clip" button, "Apply".
+
+Paraview and Parallel Data (Mpi)
+--------------------------------
+
+Say that you have data (in ensight case and sos format) spread over N
+processors, in order to view your data you need to start N paraview
+processes
+
+$ mpirun -np N paraview
+
+or 
+
+$ paraview
+
+File -> Connect
+
+Click on "Add Server" 
+
+type the server name (e.g. localhost)
+
+then click on "Configure" and enter  the command 
+
+mpirun -np N pvserver
+
+then click on "Connect" and you are now ready to visualize your
+parallel data
+
+Python scripting
+----------------
+
+It's as simple as this:
+
+    $ python
+    Python 2.5.2 (r252:60911, May 28 2008, 19:19:25) 
+    [GCC 4.2.4 (Debian 4.2.4-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> from paraview import servermanager as sm
+    >>> sm.Connect()
+    Connection (builtin:5)
+    >>> cone = sm.sources.ConeSource()
+    >>> view = sm.CreateRenderView()
+    >>> sm.CreateRepresentation(cone, view)
+    vtkConeSource : [ ...........]
+    <paraview.servermanager.GeometryRepresentation object at 0xb353118c>
+    >>> view.StillRender()
+    vtkPVGeometryFilter : [ ...........]
+    vtkPainterPolyDataMapper : [ ...........]
+    vtkPainterPolyDataMapper : [ ...........]
+
+
+This will show the cone. You can automatically reposition the camera by:
+
+    >>> view.ResetCamera()
+    >>> view.StillRender()
+    vtkPainterPolyDataMapper : [ ...........]
+    vtkPainterPolyDataMapper : [ ...........]
+    >>> 
+
+
+This should get you up and going, now learn all the details from the excellent
+guide into paraview python scripting at:
+
+http://www.paraview.org/Wiki/images/2/26/Servermanager.pdf
+
+Paraview is built against python2.5 only (it works with python2.4, but you
+would have to compile it yourself, changing build depends and debian/rules).
+
+Problems
+--------
+
+ o paraview crashes while saving screenshot
+
+   see http://openfoam.cfd-online.com/forum/messages/1/4438.html
+
+   add the following line in  /etc/X11/xorg.conf  file in ServerLayout section
+
+   Section "ServerLayout"
+   Option "AIGLX" "false"
+   EndSection
+
+
+ -- Christophe Prud'homme <prudhomm@debian.org>, Tue, 29 Jul 2008 15:49:31 +0200

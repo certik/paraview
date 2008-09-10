@@ -1,0 +1,195 @@
+Index: paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMFile.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/DICOMParser/DICOMFile.cxx	2008-06-15 16:11:12.962269296 +0200
++++ paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMFile.cxx	2008-06-15 16:12:44.674289552 +0200
+@@ -27,6 +27,7 @@
+ 
+ #include <stdio.h>
+ #include <string>
++#include <cstring>
+ 
+ DICOMFile::DICOMFile() : InputStream()
+ {
+Index: paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMParser.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/DICOMParser/DICOMParser.cxx	2008-06-15 16:11:12.966268901 +0200
++++ paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMParser.cxx	2008-06-15 16:12:44.674289552 +0200
+@@ -40,6 +40,7 @@
+ #endif
+ 
+ #include <string>
++#include <cstring>
+ 
+ // Define DEBUG_DICOM to get debug messages sent to dicom_stream::cerr
+ // #define DEBUG_DICOM
+Index: paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMAppHelper.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/DICOMParser/DICOMAppHelper.cxx	2008-06-15 16:11:12.970269114 +0200
++++ paraview-3.2.2/VTK/Utilities/DICOMParser/DICOMAppHelper.cxx	2008-06-15 16:12:44.682309605 +0200
+@@ -32,6 +32,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string>
++#include <cstring>
+ #include <math.h>
+ #include <algorithm>
+ #if defined(__BORLANDC__)
+Index: paraview-3.2.2/VTK/Utilities/vtkmetaio/metaUtils.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/vtkmetaio/metaUtils.cxx	2008-06-15 16:11:12.978269213 +0200
++++ paraview-3.2.2/VTK/Utilities/vtkmetaio/metaUtils.cxx	2008-06-15 16:12:44.682309605 +0200
+@@ -35,6 +35,7 @@
+ 
+ #include <stdlib.h>
+ #include <string>
++#include <cstring>
+ 
+ #if defined (__BORLANDC__) && (__BORLANDC__ >= 0x0580)
+ #include <mem.h>
+Index: paraview-3.2.2/VTK/Utilities/vtkmetaio/metaUtils.h
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/vtkmetaio/metaUtils.h	2008-06-15 16:11:12.982282226 +0200
++++ paraview-3.2.2/VTK/Utilities/vtkmetaio/metaUtils.h	2008-06-15 16:12:44.682309605 +0200
+@@ -52,6 +52,7 @@
+ 
+ #include <vector>
+ #include <string>
++#include <cstring>
+ #include <typeinfo>
+ 
+ 
+Index: paraview-3.2.2/VTK/Utilities/vtkmetaio/metaCommand.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/vtkmetaio/metaCommand.cxx	2008-06-15 16:11:12.990269111 +0200
++++ paraview-3.2.2/VTK/Utilities/vtkmetaio/metaCommand.cxx	2008-06-15 16:12:44.718268913 +0200
+@@ -22,6 +22,7 @@
+ 
+ #include <stdio.h>
+ #include <string>
++#include <cstring>
+ 
+ #if (METAIO_USE_NAMESPACE)
+ namespace METAIO_NAMESPACE {
+Index: paraview-3.2.2/VTK/Utilities/vtkmetaio/metaImage.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/vtkmetaio/metaImage.cxx	2008-06-15 16:11:12.994269009 +0200
++++ paraview-3.2.2/VTK/Utilities/vtkmetaio/metaImage.cxx	2008-06-15 16:12:44.718268913 +0200
+@@ -20,6 +20,7 @@
+ #include <ctype.h>
+ #include <string>
+ #include <string.h> // for memcpy
++#include <cstdlib>
+ #include <math.h>
+ 
+ #if defined (__BORLANDC__) && (__BORLANDC__ >= 0x0580)
+Index: paraview-3.2.2/VTK/Utilities/vtkmetaio/metaOutput.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/Utilities/vtkmetaio/metaOutput.cxx	2008-06-15 16:11:12.998268888 +0200
++++ paraview-3.2.2/VTK/Utilities/vtkmetaio/metaOutput.cxx	2008-06-15 16:12:44.718268913 +0200
+@@ -33,6 +33,7 @@
+ #endif
+ 
+ #include <typeinfo>
++#include <cstring>
+ 
+ #if (METAIO_USE_NAMESPACE)
+ namespace METAIO_NAMESPACE {
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfArray.h
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfArray.h	2008-06-15 16:11:13.014269194 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfArray.h	2008-06-15 16:12:44.718268913 +0200
+@@ -26,6 +26,7 @@
+ #define __XdmfArray_h
+ 
+ #include "XdmfDataDesc.h"
++#include <cstdlib>
+ 
+ #define XDMF_LONGEST_LENGTH     (XdmfInt64)~0
+ #define XDMF_ARRAY_TAG_LENGTH  80
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfDOM.h
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfDOM.h	2008-06-15 16:11:13.018268926 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfDOM.h	2008-06-15 16:12:44.723360526 +0200
+@@ -25,8 +25,8 @@
+ #ifndef __XdmfDOM_h
+ #define __XdmfDOM_h
+ 
+-
+ #include "XdmfLightData.h"
++#include <cstring>
+ 
+ //! Class for XML Parsing using the Document Object Model
+ /*!
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfLightData.h
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfLightData.h	2008-06-15 16:11:13.026269416 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfLightData.h	2008-06-15 16:12:44.723360526 +0200
+@@ -26,6 +26,7 @@
+ #define __XdmfLightData_h
+ 
+ #include "XdmfObject.h"
++#include <cstring>
+ 
+ 
+ // typedef XdmfPointer XdmfXmlNode;
+Index: paraview-3.2.2/VTK/IO/vtkFFMPEGWriter.cxx
+===================================================================
+--- paraview-3.2.2.orig/VTK/IO/vtkFFMPEGWriter.cxx	2008-06-15 16:11:13.006269152 +0200
++++ paraview-3.2.2/VTK/IO/vtkFFMPEGWriter.cxx	2008-06-15 16:12:44.723360526 +0200
+@@ -332,7 +332,7 @@
+     if (this->openedFile)
+       {
+       av_write_trailer(this->avFormatContext);
+-      url_fclose(&this->avFormatContext->pb);
++      url_fclose(this->avFormatContext->pb);
+       this->openedFile = 0;
+       }
+     
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfDataDesc.cxx
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfDataDesc.cxx	2008-06-04 23:39:52.000000000 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfDataDesc.cxx	2008-06-15 16:12:44.747108341 +0200
+@@ -23,6 +23,7 @@
+ /*                                                                 */
+ /*******************************************************************/
+ #include "XdmfDataDesc.h"
++#include <cstdlib>
+ 
+ XdmfDataDesc::XdmfDataDesc() {
+   H5dont_atexit();
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfObject.cxx
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfObject.cxx	2008-06-04 23:39:52.000000000 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfObject.cxx	2008-06-15 16:12:44.747108341 +0200
+@@ -23,6 +23,7 @@
+ /*                                                                 */
+ /*******************************************************************/
+ #include "XdmfObject.h"
++#include <cstring>
+ 
+ static XdmfInt32 GlobalDebugFlag = 0;
+ static XdmfInt64 NameCntr = 0;
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfRoot.cxx
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfRoot.cxx	2008-06-04 23:39:52.000000000 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfRoot.cxx	2008-06-15 16:12:44.747108341 +0200
+@@ -24,6 +24,7 @@
+ /*******************************************************************/
+ #include "XdmfRoot.h"
+ #include "XdmfDOM.h"
++#include <cstdlib>
+ 
+ XdmfRoot::XdmfRoot() {
+     this->SetElementName("Xdmf");
+Index: paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfH5Driver.cxx
+===================================================================
+--- paraview-3.2.2.orig/Utilities/Xdmf2/libsrc/XdmfH5Driver.cxx	2008-06-15 16:17:55.343268964 +0200
++++ paraview-3.2.2/Utilities/Xdmf2/libsrc/XdmfH5Driver.cxx	2008-06-15 16:18:06.808859901 +0200
+@@ -34,6 +34,7 @@
+ #include "XdmfDsmComm.h"
+ #include "assert.h"
+ #include "hdf5.h"
++#include <cstdlib>
+ 
+ #define HDF_IO_DEBUG 1
+ #undef HDF_IO_DEBUG

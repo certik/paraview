@@ -1,0 +1,13 @@
+Index: paraview-3.2.3/Applications/Client/MainWindow.cxx
+===================================================================
+--- paraview-3.2.3.orig/Applications/Client/MainWindow.cxx	2007-11-06 20:10:33.000000000 +0100
++++ paraview-3.2.3/Applications/Client/MainWindow.cxx	2008-08-01 21:34:33.000000000 +0200
+@@ -896,7 +896,7 @@
+   QString assistantExe;
+   QString profileFile;
+ 
+-  const char* assistantName = "assistant";
++  const char* assistantName = "assistant_adp";
+ #if defined(Q_WS_WIN)
+   const char* binDir = "\\";
+   const char* binDir1 = "\\..\\";

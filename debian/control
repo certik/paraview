@@ -1,0 +1,33 @@
+Source: paraview
+Section: science
+Priority: extra
+Maintainer: Debian Scientific Computing Team <pkg-scicomp-devel@lists.alioth.debian.org>
+Uploaders: Christophe Prud'homme <prudhomm@debian.org>, Ondrej Certik <ondrej@certik.cz>
+Build-Depends: cdbs (>= 0.4.51), debhelper (>= 5), autotools-dev, quilt (>= 0.46-4), cmake (>= 2.4.8), libqt4-dev (>= 4.3.3-2), libopenmpi-dev, libhdf5-openmpi-dev, ffmpeg, libavformat-dev (>= 0.svn20080206-1), libavutil-dev, libavcodec-dev, python-dev, chrpath, libglu1-mesa-dev, libxt-dev, libxext-dev, doxygen, graphviz, gnuplot
+Standards-Version: 3.8.0
+XS-DM-Upload-Allowed: yes
+Homepage: http://www.paraview.org/
+Vcs-Svn: svn://svn.debian.org/svn/pkg-scicomp/paraview/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-scicomp/paraview/trunk
+
+Package: paraview
+Architecture: any
+Depends: qt4-dev-tools, ${shlibs:Depends}, ${misc:Depends}
+Recommends: openmpi-bin, qt4-dev-tools (>= 4.3.3-2)
+Suggests: hdf5-tools, h5utils
+Description: Parallel Visualization Application
+ ParaView is an open-source, multi-platform application designed to
+ visualize data sets of size varying from small to very large. The
+ goals of the ParaView project include the following:
+ .
+     * Develop an open-source, multi-platform visualization application.
+     * Support distributed computation models to process large data sets.
+     * Create an open, flexible, and intuitive user interface.
+     * Develop an extensible architecture based on open standards.
+ .
+ ParaView runs on distributed and shared memory parallel as well as
+ single processor systems and has been successfully tested on Windows,
+ Mac OS X, Linux and various Unix workstations, clusters and
+ supercomputers. Under the hood, ParaView uses the Visualization
+ Toolkit as the data processing and rendering engine and has a user
+ interface written using Qt.

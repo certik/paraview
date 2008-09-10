@@ -1,0 +1,113 @@
+.TH PARAVIEW 1 "21 May 2008"
+.SH NAME
+Paraview \- Rendering and displaying program for small and large,
+three dimensional datasets.
+
+.SH SYNOPSIS
+
+\fBparaview\fP 
+[\fB-cc\fR | \fB--cave-configuration\fR \fIFILE\fR]
+[\fB--compare-view\fR \fIOPT\fR]
+[\fB--connect-id\fR \fIID\fR]
+[\fB--data\fR \fIDATA\fR]
+[\fB--data-directory\fR \fIDIR\fR]
+[\fB-dr\fR | \fB--disable-registry\fR]
+[\fB--exit\fR]
+[\fB/?\fR | \fB--help\fR]
+[\fB--image-threshold\fR \fITHRESH\fR]
+[\fB-m\fR | \fB--machines\fR \fIFILE\fR]
+[\fB--run-test\fR \fICASE\fR]
+[\fB--run-test-init\fR \fICASE\fR]
+[\fB-s\fR | \fB--server\fR \fINAME\fR]
+[\fB--stereo\fR]
+[\fB--test-directory\fR \fIDIR\fR]
+[\fB-V\fR | \fB--version\fR]
+\fP
+
+.SH DESCRIPTION
+
+\fBParaview\fP is a program for displaying and rendering of small to
+large datasets in two or three dimensions.  It runs on a single
+computer or on a cluster of nodes with distributed or shared
+memory. The Visualization Toolkit (VTK) is used as processing and
+rendering machine.
+
+
+.SH Options 
+.TP
+\fB-cc\fR | \fB--cave-configuration\fR \fIFILE\fR
+Specify the file \fIFILE\fR that defines the displays for a cave. It is used only
+with CaveRenderModule.
+
+.TP
+\fB--compare-view\fR \fIOPT\fR
+Compare the viewport to a reference image, and exit.
+
+.TP
+\fB--connect-id \fIID\fR
+Set the \fIID\fR of the server and client to make sure they match.
+
+.TP
+\fB--data\fR \fIDATA\fR
+Load the specified \fIDATA\fR.
+
+.TP
+\fB--data-directory\fR \fIDIR\fR
+Set the data \fIDIR\fR directory where test-case data are.
+
+.TP
+\fB-dr\fR | \fB--disable-registry\fR
+Do not use registry when running ParaView (for testing).
+
+.TP
+\fB--exit\fR
+Exit application when testing is done. Use for testing.
+
+.TP
+\fB/?\fR | \fB--help\fR
+Displays available command line arguments.
+
+.TP
+\fB--image-threshold\fR \fITHRESH\fR
+Set the threshold \fITHRESH\fR beyond which viewport-image comparisons fail.
+
+.TP
+\fB-m\fR | \fB--machines\fR \fIFILE\fR
+Specify the network configurations file \fIFILE\fR for the render server.
+
+.TP
+\fB--run-test\fR \fICASE\fR
+Run a recorded test case \fICASE\fR.
+
+.TP
+\fB--run-test-init\fR \fICASE\fR
+Run a recorded test initialization case \fICASE\fR.
+
+.TP
+\fB-s\fR | \fB--server\fR \fINAME\fR
+Set the name \fINAME\fR of the server resource to connect with when the client starts.
+
+.TP
+\fB--stereo\fR
+Tell the application to enable stereo rendering (only when running on
+a single process).
+
+.TP
+\fB--test-directory\fR \fIDIR\fR
+Set the temporary directory \fIDIR\fR where test-case output will be stored.
+
+.TP
+\fB-V\fR | \fB--version\fR
+Give the version number and exit.
+
+
+.SH SEE ALSO
+On-line documentation from the program help menu, wiki pages at
+http://paraview.org/Wiki/ParaView, FAQ at
+http://paraview.org/Wiki/ParaView:FAQ and mailing list at
+http://public.kitware.com/mailman/listinfo/paraview
+
+
+.SH AUTHOR
+Gerber van der Graaf
+

@@ -1,0 +1,18 @@
+debian/paraview.1 /usr/share/man/man1
+debian/H5detect.1 /usr/share/man/man1
+debian/ProcessShader.1 /usr/share/man/man1
+debian/csClient.1 /usr/share/man/man1
+debian/csServer.1 /usr/share/man/man1
+debian/kwProcessXML.1 /usr/share/man/man1
+debian/mkg3states.1 /usr/share/man/man1
+debian/pvbatch.1 /usr/share/man/man1
+debian/pvdataserver.1 /usr/share/man/man1
+debian/pvpython.1 /usr/share/man/man1
+debian/pvrenderserver.1 /usr/share/man/man1
+debian/pvserver.1 /usr/share/man/man1
+debian/vtkParseOGLExt.1 /usr/share/man/man1
+debian/vtkSMExtractDocumentation.1 /usr/share/man/man1
+debian/vtkVREncodeString.1 /usr/share/man/man1
+debian/vtkWrapClientServer.1 /usr/share/man/man1
+debian/DobranoViz.1 /usr/share/man/man1
+

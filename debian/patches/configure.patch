@@ -1,0 +1,13 @@
+Index: paraview-3.2.2/Qt/CMakeLists.txt
+===================================================================
+--- paraview-3.2.2.orig/Qt/CMakeLists.txt	2008-06-04 23:39:52.000000000 +0200
++++ paraview-3.2.2/Qt/CMakeLists.txt	2008-06-15 12:30:18.954062463 +0200
+@@ -16,7 +16,7 @@
+ # To make support of ParaView tractable, we only support a single version
+ # of Qt at one time.  If you really want to use a newer version of Qt, you
+ # can delete this check, but you are on your own.
+-STRING(REGEX MATCH "^4\\.2\\.[0-9]+" qt_version_tmp "${QTVERSION}")
++STRING(REGEX MATCH "^4\\.[2-4]\\.[0-9]+" qt_version_tmp "${QTVERSION}")
+ IF (NOT qt_version_tmp)
+   STRING(REGEX MATCH "^4\\.3\\.[0-9]+" qt_version_tmp2 "${QTVERSION}")
+   IF (NOT qt_version_tmp2)

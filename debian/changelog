@@ -1,0 +1,83 @@
+paraview (3.2.3-4) unstable; urgency=low
+
+  [ Christophe Prud'homme ]
+  * debian/control: depends on qt4-dev-tools to ensure that the help is
+    available
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Wed, 10 Sep 2008 06:53:28 +0200
+
+paraview (3.2.3-3) unstable; urgency=low
+
+  [ Ondrej Certik ]
+  * Build-Depend on libavformat-dev (>= 0.svn20080206-1). (Closes: #495822)
+
+  [ Christophe Prud'homme ]
+  * Bug fix: "paraview_3.2.3-2(sparc/unstable): FTBFS on sparc, bus error" (Closes: #494031)
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Tue, 26 Aug 2008 15:29:02 +0200
+
+paraview (3.2.3-2) unstable; urgency=low
+
+  [Christophe Prud'homme]
+  * debian/rules: enable hdf5 with parallel support
+  * debian/rules: enable documentation and examples
+  * debian/control: added libxext-dev to fix QT_X11_Xext_LIBRARY not set properly
+  * Bug fix: "paraview: Help->Help doesn't work", thanks to Thomas
+    Weber (Closes: #488671).
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Fri, 01 Aug 2008 23:39:13 +0200
+
+paraview (3.2.3-1) unstable; urgency=low
+
+  [Christophe Prud'homme]
+  * New upstream release
+  * attempt to fix vtkFFMPEGWriter (0x9d62518): Error initializing
+    video stream.
+  * cmake 2.6 patch removed, applied upstream
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Tue, 29 Jul 2008 14:03:01 +0200
+
+paraview (3.2.2-1) unstable; urgency=low
+
+  [ Ondrej Certik ]
+  * Upload to unstable (Closes: #462631)
+  * New upstream release
+  * debian/patches updated to the 3.2.2 source code
+  * cmake2.6.patch added to configure well with cmake2.6
+  * libglu1-mesa-dev and libxt-dev added to Build-Depends
+  * gcc4.3.patch added with fixes to compile with gcc 4.3
+  * Standards-Version bumped to 3.8.0 (no action needed)
+  * debian/rules: python 2.4 changed to 2.5
+  * README.Debian updated to python2.5
+  * lintian override for binary-or-shlib-defines-rpath added
+
+  [Christophe Prud'homme]
+  * added paraview manapage by Gerber van der Graaf
+  * -DMPI_EXTRA_LIBRARY="/usr/lib/libmpi++.so" added
+  * added and install manpages to all binaries
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sun, 15 Jun 2008 22:04:41 +0200
+
+paraview (3.2.1-1) UNRELEASED; urgency=low
+
+  [ Ondrej Certik ]
+  * Initial Debian packaging
+  * XS-Vcs-Svn and XS-Vcs-Browser fields added
+  * Python scripting fixed
+  * Build against Python 2.4
+  * /usr/lib/paraview/doc directory removed
+  * /usr/bin/vtkWrapPythonInit removed
+  * /usr/bin/vtkWrapPython removed
+
+  [ Christophe Prud'homme ]
+  * debian/copyright: added all the copyrights and licenses
+  * debian/{rules,control}: use cdbs
+  * debian/{rules,control}: depends on ffmpeg encoder
+  * debian/{rules,control}: depends on python2.5
+  * debian/{rules,control}: depends on openmpi
+  * debian/rules: enable shared libs and reduce package size tremendously
+  * debian/rules: set the installation directories
+  * debian/{rules, patches/configure.patch} applied patch for Qt4.4 by
+    Gerber van der Graaf <gerber.vdgraaf@gmail.com>.
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sat, 17 May 2008 08:58:58 +0200

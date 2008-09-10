@@ -1,0 +1,15 @@
+Index: paraview-3.2.3/VTK/IO/vtkFFMPEGWriter.cxx
+===================================================================
+--- paraview-3.2.3.orig/VTK/IO/vtkFFMPEGWriter.cxx	2008-08-01 18:12:56.000000000 +0200
++++ paraview-3.2.3/VTK/IO/vtkFFMPEGWriter.cxx	2008-08-01 18:12:57.000000000 +0200
+@@ -158,6 +158,10 @@
+       c->bit_rate = 12*1024*1024;
+       break;
+     }
++    
++  // fix for ffmpeg initialization
++  c->bit_rate_tolerance = c->bit_rate * 20;
++
+ 
+   //apply the chosen parameters
+   if (av_set_parameters(this->avFormatContext, NULL) < 0) 

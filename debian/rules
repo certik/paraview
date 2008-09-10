@@ -1,0 +1,93 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_COMPRESS_EXCLUDE     := .adp .pdf
+
+
+include /usr/share/cdbs/1/class/cmake.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/patchsys-quilt.mk
+
+PVER = 2.5
+
+DEB_CMAKE_EXTRA_FLAGS=                   \
+	-DBUILD_DOCUMENTATION=ON         \
+        -DDOCUMENTATION_HTML_HELP=ON     \
+	-DBUILD_EXAMPLES=ON              \
+        -DBUILD_SHARED_LIBS=ON           \
+        -DVTK_USE_RPATH=ON               \
+	-DCMAKE_INSTALL_RPATH=/usr/lib/paraview \
+	-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON  \
+        -DBUILD_TESTING=OFF              \
+        -DVTK_USE_MPEG2_ENCODER=OFF       \
+        -DVTK_USE_FFMPEG_ENCODER=ON      \
+	-DFFMPEG_INCLUDE_DIR=/usr/include/ffmpeg \
+        -DPARAVIEW_USE_MPI=ON              \
+        -DPARAVIEW_USE_SYSTEM_HDF5=ON      \
+        -DHDF5_ENABLE_PARALLEL=ON    	   \
+        -DPARAVIEW_ENABLE_PYTHON=ON        \
+        -DCMAKE_VERBOSE_MAKEFILE=OFF       \
+        -DCMAKE_C_FLAGS="-O2 -fPIC"        \
+        -DCMAKE_CXX_FLAGS="-O2 -fPIC"      \
+        -DMPI_LIBRARY="/usr/lib/libmpi.so" \
+		-DMPI_EXTRA_LIBRARY="/usr/lib/libmpi++.so" \
+        -DMPI_INCLUDE_PATH=/usr/include/mpi \
+        -DPYTHON_EXECUTABLE=/usr/bin/python$(PVER) \
+        -DPV_INSTALL_LIB_DIR="$${PV_INSTALL_ROOT}/lib/paraview" \
+        -DPV_INSTALL_INCLUDE_DIR="$${PV_INSTALL_ROOT}/include/paraview"
+
+DEB_DH_SHLIBDEPS_ARGS=-l$(CURDIR)/debian/paraview/usr/lib/paraview
+
+install/paraview::
+	-for i in `find $(DEB_BUILDDIR)/bin/ -name "[DHPckmpv]*"`;  \
+	 do\
+          install $$i debian/paraview/usr/bin; \
+        done
+	-rm debian/paraview/usr/bin/*.txt
+	-rm debian/paraview/usr/bin/*.adp
+	-rm debian/paraview/usr/bin/vtkWrapPythonInit
+	-rm debian/paraview/usr/bin/vtkWrapPython
+	-mkdir -p debian/paraview/usr/lib/paraview
+	-for i in `find $(DEB_BUILDDIR)/bin/ -name "*.so*"`;  \
+	 do\
+          install $$i debian/paraview/usr/lib/paraview; \
+        done
+	-mkdir -p debian/paraview/usr/share/doc/paraview
+	-rm -rf debian/paraview/usr/share/doc/paraview/html
+	-mv debian/paraview/usr/bin/Documentation/ debian/paraview/usr/share/doc/paraview/html
+	-mv debian/paraview/usr/plugins debian/paraview/usr/lib/paraview
+	-mkdir -p debian/paraview/usr/share/lintian/overrides
+	-cp debian/paraview.lintian-overrides debian/paraview/usr/share/lintian/overrides/paraview
+	-for i in `find debian/paraview/usr/lib/paraview/ -name "*.so*"`; \
+         do \
+           chrpath -r/usr/lib/paraview:/usr/lib/python$(PVER)/config $$i; \
+         done
+	-for i in `find debian/paraview/usr/bin/ -name "*"`; \
+         do \
+           chrpath -r/usr/lib/paraview:/usr/lib/python$(PVER)/config $$i; \
+         done
+	-mkdir -p debian/paraview/usr/lib/python$(PVER)/site-packages/
+	-cp -r $(DEB_BUILDDIR)/Utilities/VTKPythonWrapping/paraview debian/paraview/usr/lib/python$(PVER)/site-packages/
+	-rm debian/paraview/usr/lib/python$(PVER)/site-packages/paraview/*.pyc
+	-ln -s /usr/lib/paraview/libvtkPVServerCommonPython.so debian/paraview/usr/lib/python$(PVER)/site-packages/paraview/
+	-ln -s /usr/lib/paraview/libvtkCommonPython.so debian/paraview/usr/lib/python$(PVER)/site-packages/paraview/
+	-ln -s /usr/lib/paraview/libvtkPVServerManagerPython.so debian/paraview/usr/lib/python$(PVER)/site-packages/paraview/
+	-rm -r debian/paraview/usr/lib/paraview/doc
+	-# install the documentation
+	-mkdir debian/paraview/usr/share/paraview
+	-echo  >debian/paraview/usr/share/paraview/pqClientDocFinder.txt /usr/bin/
+	-echo >>debian/paraview/usr/share/paraview/pqClientDocFinder.txt /usr/share/doc/paraview/html/pqClient.adp
+	-install $(DEB_BUILDDIR)/pqClient.adp debian/paraview/usr/share/doc/paraview/html
+	-ln -s . debian/paraview/usr/share/doc/paraview/html/Documentation
+
+get-orig-source:
+	uscan --force-download 
+

@@ -1,0 +1,13 @@
+Index: paraview-3.2.2/VTK/CMake/FindPythonLibs.cmake
+===================================================================
+--- paraview-3.2.2.orig/VTK/CMake/FindPythonLibs.cmake	2008-06-15 12:53:42.242112539 +0200
++++ paraview-3.2.2/VTK/CMake/FindPythonLibs.cmake	2008-06-15 12:55:09.192716878 +0200
+@@ -81,7 +81,7 @@
+ 
+ # if the platform supports shared libs, build the modules shared by default
+ IF(COMMAND GET_PROPERTY)
+-  GET_PROPERTY(_TARGET_SUPPORTS_SHARED_LIBS GLOBAL TARGET_SUPPORTS_SHARED_LIBS)
++  GET_PROPERTY(_TARGET_SUPPORTS_SHARED_LIBS GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
+ ELSE(COMMAND GET_PROPERTY)
+   SET(_TARGET_SUPPORTS_SHARED_LIBS TRUE)
+ ENDIF(COMMAND GET_PROPERTY)
