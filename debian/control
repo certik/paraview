@@ -3,7 +3,7 @@ Section: science
 Priority: extra
 Maintainer: Debian Scientific Computing Team <pkg-scicomp-devel@lists.alioth.debian.org>
 Uploaders: Christophe Prud'homme <prudhomm@debian.org>, Ondrej Certik <ondrej@certik.cz>
-Build-Depends: cdbs (>= 0.4.51), debhelper (>= 5), autotools-dev, quilt (>= 0.46-4), cmake (>= 2.4.8), libqt4-dev (>= 4.3.3-2), libopenmpi-dev, libhdf5-openmpi-dev, ffmpeg, libavformat-dev (>= 0.svn20080206-1), libavutil-dev, libavcodec-dev, python-dev, chrpath, libglu1-mesa-dev, libxt-dev, libxext-dev, doxygen, graphviz, gnuplot
+Build-Depends: cdbs (>= 0.4.51), debhelper (>= 5), autotools-dev, quilt (>= 0.46-4), cmake (>= 2.4.8), libqt4-dev (>= 4.3.3-2), libopenmpi-dev, libhdf5-openmpi-dev, ffmpeg, libavformat-dev (>= 0.svn20080206), libavutil-dev, libavcodec-dev, python-dev, chrpath, libglu1-mesa-dev, libxt-dev, libxext-dev, doxygen, graphviz, gnuplot
 Standards-Version: 3.8.0
 XS-DM-Upload-Allowed: yes
 Homepage: http://www.paraview.org/

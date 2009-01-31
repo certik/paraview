@@ -1,6 +1,8 @@
 paraview (3.2.3-5) unstable; urgency=low
 
   * Rebuild paraview to fix a missing symbol problem (Closes: #513060)
+  * Depend on libavformat-dev (>= 0.svn20080206) instead of libavformat-dev (>=
+    0.svn20080206-1) to fix a lintian warning
 
  -- Ondrej Certik <ondrej@certik.cz>  Sat, 31 Jan 2009 19:31:55 +0100
 
