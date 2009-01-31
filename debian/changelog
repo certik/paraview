@@ -1,3 +1,9 @@
+paraview (3.2.3-5) unstable; urgency=low
+
+  * Rebuild paraview to fix a missing symbol problem (Closes: #513060)
+
+ -- Ondrej Certik <ondrej@certik.cz>  Sat, 31 Jan 2009 19:31:55 +0100
+
 paraview (3.2.3-4) unstable; urgency=low
 
   [ Christophe Prud'homme ]
