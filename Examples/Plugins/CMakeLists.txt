@@ -1,0 +1,8 @@
+
+SUBDIRS(SMFilter ParametricSource)
+
+IF(PARAVIEW_BUILD_QT_GUI)
+  SUBDIRS(GUIToolBar Reader GUIObjectPanel GUIView)
+ENDIF(PARAVIEW_BUILD_QT_GUI)
+
+

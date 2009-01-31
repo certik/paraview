@@ -1,0 +1,32 @@
+#include "vtkClientServerInterpreter.h"
+
+#ifndef PARAVIEW_BUILD_SHARED_LIBS
+#cmakedefine PARAVIEW_BUILD_SHARED_LIBS
+#endif
+#if defined(PARAVIEW_BUILD_SHARED_LIBS) && defined(_WIN32)
+# define VTK_WRAP_CS_EXPORT __declspec(dllexport)
+#else
+# define VTK_WRAP_CS_EXPORT
+#endif
+
+static int @CS_TARGET@_NewInstance(vtkClientServerInterpreter *arlu, 
+        const char *type, vtkClientServerID id);
+
+@CXX_CONTENTS@
+
+extern "C" void VTK_WRAP_CS_EXPORT @CS_TARGET@_Initialize(
+  vtkClientServerInterpreter *arlu)
+{
+  arlu->AddNewInstanceFunction( @CS_TARGET@_NewInstance);
+
+  @CXX_CONTENTS2@
+}
+
+static int @CS_TARGET@_NewInstance(vtkClientServerInterpreter *arlu, 
+                                   const char *type, vtkClientServerID id)
+{
+  
+@CXX_CONTENTS3@
+
+  return 0;
+}

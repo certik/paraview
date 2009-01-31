@@ -1,0 +1,86 @@
+/*=========================================================================
+
+  Program:   ParaView
+  Module:    $RCSfile: vtkCSVWriter.h,v $
+
+  Copyright (c) Kitware, Inc.
+  All rights reserved.
+  See Copyright.txt or http://www.paraview.org/HTML/Copyright.html for details.
+
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+     PURPOSE.  See the above copyright notice for more information.
+
+=========================================================================*/
+// .NAME vtkCSVWriter - writer for 1D vtkRectilinearGrid.
+// Writes a vtkRectilinearGrid as a delimited text file (such as CSV). 
+#ifndef __vtkCSVWriter_h
+#define __vtkCSVWriter_h
+
+#include "vtkWriter.h"
+
+class vtkStdString;
+class vtkRectilinearGrid;
+
+class VTK_EXPORT vtkCSVWriter : public vtkWriter
+{
+public:
+  static vtkCSVWriter* New();
+  vtkTypeRevisionMacro(vtkCSVWriter, vtkWriter);
+  void PrintSelf(ostream& os, vtkIndent indent);
+
+  // Description:
+  // Get/Set the delimiter use to separate fields ("," by default.)
+  vtkSetStringMacro(FieldDelimiter);
+  vtkGetStringMacro(FieldDelimiter);
+
+  // Description:
+  // Get/Set the delimiter used for string data, if any 
+  // eg. double quotes(").
+  vtkSetStringMacro(StringDelimiter);
+  vtkGetStringMacro(StringDelimiter);
+
+  // Description:
+  // Get/Set the filename for the file.
+  vtkSetStringMacro(FileName);
+  vtkGetStringMacro(FileName);
+
+  // Description:
+  // Get/Set if StringDelimiter must be used for string data.
+  // True by default.
+  vtkSetMacro(UseStringDelimiter, bool);
+  vtkGetMacro(UseStringDelimiter, bool);
+
+//BTX
+  // Description:
+  // Internal method: decortes the "string" with the "StringDelimiter" if 
+  // UseStringDelimiter is true.
+  vtkStdString GetString(vtkStdString string);
+protected:
+  vtkCSVWriter();
+  ~vtkCSVWriter();
+
+  bool OpenFile();
+
+  virtual void WriteData();
+  virtual void WriteRectilinearGridData(vtkRectilinearGrid* rectilinearGrid);
+
+  // see algorithm for more info.
+  // This writer takes in vtkRectilinearGrids.
+  virtual int FillInputPortInformation(int port, vtkInformation* info);
+
+  char* FileName;
+  char* FieldDelimiter;
+  char* StringDelimiter;
+  bool UseStringDelimiter;
+  ofstream* Stream;
+private:
+  vtkCSVWriter(const vtkCSVWriter&); // Not implemented.
+  void operator=(const vtkCSVWriter&); // Not implemented.
+//ETX
+};
+
+
+
+#endif
+

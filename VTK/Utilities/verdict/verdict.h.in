@@ -1,0 +1,14 @@
+#ifndef VERDICT_PRECONF_INCLUDE
+#define VERDICT_PRECONF_INCLUDE
+
+#define VERDICT_VERSION @verdict_VERSION_FLAT@
+
+#cmakedefine BUILD_SHARED_LIBS
+
+#ifdef BUILD_SHARED_LIBS
+# define VERDICT_SHARED_LIB
+#endif
+
+#endif
+
+#include <include/verdict.h>

@@ -1,0 +1,115 @@
+SET( Xdmf_SRCS
+  vtkXdmfReader.cxx
+  vtkXdmfWriter.cxx
+  vtkXdmfDataArray.cxx
+#vtkXdmfOpenGLCamera.cxx
+#${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx
+#vtkXdmfDataSetWriter.cxx
+  )
+
+SET(USE_RENDER_WINDOW_INTERACTOR 1)
+IF (OSMESA_LIBRARY AND NOT OPENGL_gl_LIBRARY)
+  SET(USE_RENDER_WINDOW_INTERACTOR 0)
+ENDIF (OSMESA_LIBRARY AND NOT OPENGL_gl_LIBRARY)
+
+IF(APPLE)
+  SET(USE_RENDER_WINDOW_INTERACTOR 0)
+ENDIF(APPLE)
+
+IF(USE_RENDER_WINDOW_INTERACTOR)
+# Build vtkXdmf*RenderWindowInteractor.h
+  IF(WIN32)
+    SET(XDMF_WINDOWINTERACTOR vtkWin32RenderWindowInteractor)
+    CONFIGURE_FILE(${Xdmf_SOURCE_DIR}/vtk/vtkXdmfRenderWindowInteractor.h.in
+      ${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.h
+      @ONLY IMMEDIATE)
+    CONFIGURE_FILE(${Xdmf_SOURCE_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx.in
+      ${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx
+      @ONLY IMMEDIATE)
+  ELSE(WIN32)
+    IF(VTK_USE_X)
+      INCLUDE_DIRECTORIES(${X11_X11_INCLUDE_PATH})
+    ENDIF(VTK_USE_X)
+    SET(XDMF_WINDOWINTERACTOR vtkXRenderWindowInteractor)
+    CONFIGURE_FILE(${Xdmf_SOURCE_DIR}/vtk/vtkXdmfRenderWindowInteractor.h.in
+      ${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.h
+      @ONLY IMMEDIATE)
+    CONFIGURE_FILE(${Xdmf_SOURCE_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx.in
+      ${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx
+      @ONLY IMMEDIATE)
+  ENDIF(WIN32)
+
+  SET(Xdmf_SRCS ${Xdmf_SRCS}
+    ${Xdmf_BINARY_DIR}/vtk/vtkXdmfRenderWindowInteractor.cxx
+    )
+ENDIF(USE_RENDER_WINDOW_INTERACTOR)
+
+SET_SOURCE_FILES_PROPERTIES(
+  vtkXdmfDataArray
+  WRAP_EXCLUDE
+  )
+
+SET(VTK_BINARY_DIR "${Xdmf_BINARY_DIR}/vtk")
+INCLUDE(${VTK_CMAKE_DIR}/vtkExportKit.cmake)
+VTK_EXPORT_KIT("Xdmf" "XDMF" "${Xdmf_SRCS}")
+
+# if vtk was found include the use vtk file
+IF (VTK_FOUND)
+  IF(VTK_BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+    SET(LIBTYPE SHARED)
+  ELSE(VTK_BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+    SET(LIBTYPE STATIC)
+  ENDIF(VTK_BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+  ADD_LIBRARY(vtkXdmf ${LIBTYPE} ${Xdmf_SRCS})
+  TARGET_LINK_LIBRARIES(vtkXdmf vtkIO Xdmf vtkRendering vtkParallel)
+
+  IF (VTK_USE_MPI)
+    # Needed for mpich 2
+    ADD_DEFINITIONS("-DMPICH_IGNORE_CXX_SEEK")
+  ENDIF (VTK_USE_MPI)
+
+  # Create Tcl wrappers if VTK is wrapped in Tcl.
+  IF(VTK_WRAP_TCL)
+    INCLUDE(${VTK_CMAKE_DIR}/vtkWrapTcl.cmake OPTIONAL)
+    VTK_WRAP_TCL2(vtk${PROJECT_NAME}TCL XdmfTCL_SRCS ${Xdmf_SRCS})
+    ADD_LIBRARY(vtk${PROJECT_NAME}TCL ${LIBTYPE} ${XdmfTCL_SRCS} ${Xdmf_SRCS})
+    TARGET_LINK_LIBRARIES(vtk${PROJECT_NAME}TCL vtkIOTCL vtkRenderingTCL vtkParallelTCL Xdmf)
+    ADD_DEPENDENCIES(vtk${PROJECT_NAME}TCL vtk${PROJECT_NAME})
+  ENDIF(VTK_WRAP_TCL)
+
+  # Create Python wrappers if VTK is wrapped in Python.
+  IF(VTK_WRAP_PYTHON)
+    INCLUDE(${VTK_CMAKE_DIR}/vtkWrapPython.cmake OPTIONAL)
+    VTK_WRAP_PYTHON2(vtk${PROJECT_NAME}Python XdmfPython_SRCS ${Xdmf_SRCS})
+    ADD_LIBRARY(vtk${PROJECT_NAME}Python SHARED ${XdmfPython_SRCS} ${Xdmf_SRCS})
+    TARGET_LINK_LIBRARIES(vtk${PROJECT_NAME}Python vtkIOPython vtkRenderingPython vtkParallelPython Xdmf)
+    ADD_DEPENDENCIES(vtk${PROJECT_NAME}Python vtk${PROJECT_NAME})
+  ENDIF(VTK_WRAP_PYTHON)
+  IF(XDMF_BUILD_TESTING)
+    SUBDIRS(Testing)
+  ENDIF(XDMF_BUILD_TESTING)
+ELSE(VTK_FOUND)
+  MESSAGE(STATUS "Can't find VTK ... no vtkXdmf interface can be built")
+ENDIF (VTK_FOUND)
+
+IF(NOT XDMF_INSTALL_NO_DEVELOPMENT)
+  INSTALL_FILES(${XDMF_INSTALL_INCLUDE_VTK_DIR} .h ${Xdmf_SRCS})
+ENDIF(NOT XDMF_INSTALL_NO_DEVELOPMENT)
+IF (VTK_FOUND)
+  IF(NOT XDMF_INSTALL_NO_LIBRARIES)
+    IF(PV_INSTALL_HAS_CMAKE_24)
+      INSTALL(TARGETS vtkXdmf
+        RUNTIME DESTINATION ${PV_INSTALL_BIN_DIR_CM24} COMPONENT Runtime
+        LIBRARY DESTINATION ${PV_INSTALL_LIB_DIR_CM24} COMPONENT Runtime
+        ARCHIVE DESTINATION ${PV_INSTALL_LIB_DIR_CM24} COMPONENT Development)
+    ELSE(PV_INSTALL_HAS_CMAKE_24)
+      INSTALL_TARGETS(${XDMF_INSTALL_LIB_DIR} vtkXdmf)
+    ENDIF(PV_INSTALL_HAS_CMAKE_24)
+    IF(VTK_WRAP_TCL)
+      INSTALL_TARGETS(${XDMF_INSTALL_LIB_DIR} vtk${PROJECT_NAME}TCL)
+    ENDIF(VTK_WRAP_TCL)
+    IF(VTK_WRAP_PYTHON)
+      INSTALL_TARGETS(${XDMF_INSTALL_LIB_DIR} vtk${PROJECT_NAME}Python)
+    ENDIF(VTK_WRAP_PYTHON)
+  ENDIF(NOT XDMF_INSTALL_NO_LIBRARIES)
+ENDIF (VTK_FOUND)

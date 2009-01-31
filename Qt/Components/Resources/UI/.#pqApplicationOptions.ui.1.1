@@ -1,0 +1,113 @@
+<ui version="4.0" >
+ <class>pqApplicationOptions</class>
+ <widget class="QWidget" name="pqApplicationOptions" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QStackedWidget" name="stackedWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="General" >
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="1" column="2" >
+        <widget class="QLabel" name="label_2" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>0</hsizetype>
+           <vsizetype>5</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text" >
+          <string>mins</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Heart-Beat Interval</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2" >
+        <widget class="QComboBox" name="DefaultViewType" />
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string>Default View</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="3" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>441</width>
+           <height>127</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QSpinBox" name="HeartBeatTimeout" >
+         <property name="toolTip" >
+          <string>&lt;html>&lt;p>Set the interval in &lt;b>minutes&lt;/b> after which the client sends a heart beat message to the server to avoid connection termination due to inactivity. &lt;b>0&lt;/b> means no heartbeats.&lt;/p>&lt;/html></string>
+         </property>
+         <property name="statusTip" >
+          <string>&lt;html>&lt;p>Set the interval in &lt;b>minutes&lt;/b> after which the client sends a heart beat message to the server to avoid connection termination due to inactivity. &lt;b>0&lt;/b> means no heartbeats.&lt;/p>&lt;/html></string>
+         </property>
+         <property name="whatsThis" >
+          <string>&lt;html>&lt;p>Set the interval in &lt;b>minutes&lt;/b> after which the client sends a heart beat message to the server to avoid connection termination due to inactivity. &lt;b>0&lt;/b> means no heartbeats.&lt;/p>&lt;/html></string>
+         </property>
+         <property name="maximum" >
+          <number>1440</number>
+         </property>
+         <property name="minimum" >
+          <number>0</number>
+         </property>
+         <property name="singleStep" >
+          <number>10</number>
+         </property>
+         <property name="value" >
+          <number>20</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,68 @@
+// This file is generated.  Do not edit.
+
+
+/*=========================================================================
+
+  Program:   ParaView
+  Module:    $RCSfile: vtkPVPluginInit.cxx.in,v $
+
+  Copyright (c) Kitware, Inc.
+  All rights reserved.
+  See Copyright.txt or http://www.paraview.org/HTML/Copyright.html for details.
+
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+     PURPOSE.  See the above copyright notice for more information.
+
+=========================================================================*/
+
+#if @HAVE_XML@
+#include "@XML_HEADER@"
+#endif // HAVE_XML
+
+#ifdef _WIN32
+// __cdecl gives an unmangled name
+#define C_DECL __cdecl
+#define C_EXPORT extern "C" __declspec(dllexport)
+#else
+#define C_DECL
+#define C_EXPORT extern "C"
+#endif
+
+#if @HAVE_XML@
+namespace {
+  class StaticInit
+  {
+    public:
+    StaticInit()
+    {
+      XMLString = @XML_GET_INTERFACE@();
+    }
+    ~StaticInit()
+    {
+      delete [] XMLString;
+    }
+    char* XMLString;
+  };
+}
+
+// entry point to get XML as a string
+C_EXPORT const char* C_DECL ParaViewPluginXML()
+{
+  static StaticInit staticinit;
+  return staticinit.XMLString;
+}
+#endif // HAVE_XML
+
+#if @HAVE_SRCS@
+class vtkClientServerInterpreter;
+extern "C" void @MODULE_NAME@_Initialize(vtkClientServerInterpreter *arlu);
+
+// entry point to initialize this plugin with the client/server interpreter
+C_EXPORT void C_DECL ParaViewPluginInit(vtkClientServerInterpreter *arlu)
+{
+  @MODULE_NAME@_Initialize(arlu);
+}
+
+#endif // HAVE_SRCS
+

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/pqCore" >
+        <file>Icons/pqLinkOut16.png</file>
+    </qresource>
+</RCC>
+

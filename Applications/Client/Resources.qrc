@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/pqClient" >
+        <file>PVSplashScreen.png</file>
+    </qresource>
+</RCC>

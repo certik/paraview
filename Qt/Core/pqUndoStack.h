@@ -1,0 +1,140 @@
+/*=========================================================================
+
+   Program: ParaView
+   Module:    $RCSfile: pqUndoStack.h,v $
+
+   Copyright (c) 2005,2006 Sandia Corporation, Kitware Inc.
+   All rights reserved.
+
+   ParaView is a free software; you can redistribute it and/or modify it
+   under the terms of the ParaView license version 1.1. 
+
+   See License_v1.1.txt for the full ParaView license.
+   A copy of this license can be obtained by contacting
+   Kitware Inc.
+   28 Corporate Drive
+   Clifton Park, NY 12065
+   USA
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHORS OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+========================================================================*/
+#ifndef __pqUndoStack_h
+#define __pqUndoStack_h
+
+#include "pqCoreExport.h"
+#include <QObject>
+
+class pqServer;
+class vtkSMUndoElement;
+class vtkSMUndoStack;
+class vtkSMUndoStackBuilder;
+class vtkUndoElement;
+
+/// pqUndoStack represents a vtkSMUndoStack along with a
+/// a vtkSMUndoStackBuilder. It provides Qt slots to call
+/// methods on undo stack or builder. Also it converts
+/// vtk events from the stack/builder to Qt signals.
+/// The only purpose of this class is to provide Qt
+/// friendly API to the ServerManager classes.
+/// All logic must be in the server manager classes (or their
+/// subclasses).
+class PQCORE_EXPORT pqUndoStack : public QObject
+{
+  Q_OBJECT
+public:
+  /// If no \c builder is provided a default vtkSMUndoStackBuilder object
+  /// will be created.
+  pqUndoStack(bool clientOnly, vtkSMUndoStackBuilder* builder=0, QObject* parent=NULL);
+  virtual ~pqUndoStack();
+
+  /// returns if it's possible to undo.
+  bool canUndo();
+
+  /// returns if it's possible to redo.
+  bool canRedo();
+
+  /// returns the undo label.
+  const QString undoLabel();
+
+  /// returns the redo label.
+  const QString redoLabel();
+
+
+  /// Get the status of the IgnoreAllChanges flag on the
+  /// stack builder.
+  bool ignoreAllChanges() const;
+
+  /// Register Application specific undo elements.
+  void registerElementForLoader(vtkSMUndoElement*);
+
+  /// Get if the stack is currently being undone/redone.
+  bool getInUndo() const;
+  bool getInRedo() const;
+
+public slots:
+  void beginUndoSet(QString label);
+  void endUndoSet();
+ 
+  /// triggers Undo.
+  void undo();
+
+  /// triggers Redo.
+  void redo();
+
+  /// Clears undo stack.
+  void clear();
+
+  /// when the GUI is performing some changes
+  /// that should not go on the UndoStack at all, it should
+  /// call beginNonUndoableChanges(). Once it's finished doing
+  /// these changes, it must call endNonUndoableChanges() to restore
+  /// the IgnoreAllChanges flag state to the one before the push.
+  void beginNonUndoableChanges();
+  void endNonUndoableChanges();
+
+  /// One can add arbritary elements to the 
+  /// undo set currently being built.
+  void addToActiveUndoSet(vtkUndoElement* element);
+
+signals:
+  /// Fired to notify interested parites that the stack has changed.
+  /// Has information to know the status of the top of the stack.
+  void stackChanged(bool canUndo, QString undoLabel, 
+    bool canRedo, QString redoLabel);
+    
+  void canUndoChanged(bool);
+  void canRedoChanged(bool);
+  void undoLabelChanged(const QString&);
+  void redoLabelChanged(const QString&);
+  
+  // Fired after undo.
+  void undone();
+  // Fired after redo.
+  void redone();
+ 
+public slots: 
+  void setActiveServer(pqServer* server);  // TODO remove this
+
+private slots:
+  void onStackChanged();
+
+private:
+  class pqImplementation;  
+  pqImplementation* Implementation;
+  
+};
+
+
+#endif
+

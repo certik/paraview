@@ -1,0 +1,103 @@
+SET(CTEST_CUSTOM_MEMCHECK_IGNORE
+  ${CTEST_CUSTOM_MEMCHECK_IGNORE}
+  TestSetGet
+  otherPrint-ParaView
+  Example-vtkLocal
+  Example-vtkMy
+
+  # These tests do not actually run any VTK code
+  HeaderTesting-Common          
+  HeaderTesting-Filtering       
+  HeaderTesting-Graphics        
+  HeaderTesting-Imaging         
+  HeaderTesting-IO              
+  HeaderTesting-Rendering       
+  HeaderTesting-Hybrid          
+  HeaderTesting-Parallel        
+  HeaderTesting-PVServer-Common 
+  HeaderTesting-PVServer-Filters
+  HeaderTesting-PVServer-ServerManager
+  HeaderTesting-KWCommon
+  HeaderTesting-KWWidgets       
+  HeaderTesting-PVGUI-Client
+  HeaderTesting-Widgets
+  
+  PrintSelf-KWWidgets	
+  PrintSelf-PVGUI-Client
+  PrintSelf-PVServer-Common
+  PrintSelf-PVServer-Filters
+  PrintSelf-PVServer-ServerManager
+  PrintSelf-ParaView
+  TestSetGet-ParaView
+  TestSetObjectMacro-KWWidgets
+  TestSetObjectMacro-PVGUI-Client
+  TestSetObjectMacro-PVServer-Common
+  TestSetObjectMacro-PVServer-Filters
+  TestSetObjectMacro-PVServer-ServerManager
+  TestSetObjectMacro-ParaView
+  
+  # this one runs python which then runs two program so no memory checking there
+  Sockets-image
+  )
+
+SET(CTEST_CUSTOM_WARNING_MATCH
+  ${CTEST_CUSTOM_WARNING_MATCH}
+  "{standard input}:[0-9][0-9]*: Warning: "
+  )
+
+IF("@CMAKE_SYSTEM@" MATCHES "OSF")
+  SET(CTEST_CUSTOM_WARNING_EXCEPTION
+    ${CTEST_CUSTOM_WARNING_EXCEPTION}
+    "XdmfDOM"
+    "XdmfExpr"
+    "vtkKWApplication"
+    "vtkKWObject"
+    )
+ENDIF("@CMAKE_SYSTEM@" MATCHES "OSF")
+
+SET(CTEST_CUSTOM_WARNING_EXCEPTION
+  ${CTEST_CUSTOM_WARNING_EXCEPTION}
+  "tcl8.4.5/[^/]+/../[^/]+/[^.]+.c[:\"]"
+  "tcl8.4.5/[^/]+/[^/]+/[^.]+.c[:\"]"
+  "tcl8.4.5/[^/]+/[^/]+.c[:\"]"
+  "tk8.4.5/[^/]+/../[^/]+/[^.]+.c[:\"]"
+  "tk8.4.5/[^/]+/[^/]+/[^.]+.c[:\"]"
+  "tk8.4.5/[^/]+/[^/]+.c[:\"]"
+  "VTK/Utilities/vtktiff/"      
+  "VTK/Utilities/vtkmpeg2encode/"      
+  "Utilities/hdf5/"
+  "xtree.[0-9]+. : warning C4702: unreachable code"
+  "warning LNK4221"
+  "variable .var_args[2]*. is used before its value is set"
+  "jobserver unavailable"
+  "warning: \\(Long double usage is reported only once for each file"
+  "warning: To disable this warning use"
+  "ranlib: file: .+ has no symbols"
+  "could not be inlined"
+  "qt3/include/q"
+  ".include.QtCore"
+  "include/features.h"
+  "Qt/Python/pqPythonStream"
+  "python.+/pyconfig.h"
+  "vtkfreetype/src"
+  "OSServices.framework"
+  "QD.framework/Headers/Quickdraw.h"
+  "warning: argument .+ might be clobbered by .longjmp. or .vfork."
+  "Microsoft Visual Studio/VC98/include"
+  ".include.qtcore"
+  "Xdmf2/libsrc"
+  )
+
+SET(CTEST_CUSTOM_COVERAGE_EXCLUDE
+  ${CTEST_CUSTOM_COVERAGE_EXCLUDE}
+  "vtk.*CSInit.cxx"
+  "vtkKWParaViewInit.cxx"
+  "vtk[^\\.]+ClientServer.cxx"
+  "vtk[^\\.]+Python.cxx"
+  "vtkSNL"
+  "GUI/Widgets"
+  "moc_[^\\.]+.cxx"
+  "ui_[^\\.]+.h"
+  "qrc_[^\\.]+.cxx"
+  )
+
